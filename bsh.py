@@ -1,3 +1,5 @@
+import sys
+
 def bsh(filename):
     f = open(filename,'r')
     path = None
@@ -6,14 +8,12 @@ def bsh(filename):
             path = line.replace('#!','').strip()
             mode = 'non'
             fp = open(path+'/py.py','w')
-            fb = open(path+'/bash.sh','w')
+            fb = open(path+'/bash.sh','w',newline='')
             fv = open(path+'/.bin','w')
-            fr = open(path+'/run.sh','w')
-
+            fr = open(path+'/run.sh','w',newline='')
             #run
             fr.write('bash bash.sh'+'\n')
             fr.write('python py.py')
-
             #python
             fr.close()
             fp.write('bsh = {}'+'\n')
@@ -40,5 +40,7 @@ def bsh(filename):
                     elif mode == 'python':
                         fp.write(line1+'\n')
 
-bsh('example.d')
-                
+if len(sys.argv) ==2:
+    bsh(sys.argv[1])
+else:
+    raise Exception('Invalid amount of arguments')
