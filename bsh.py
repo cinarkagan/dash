@@ -42,7 +42,7 @@ def bsh(filename):
                         fp.write(line1+'\n')
             #run
             os.system('cd '+path)
-            os.system('bash run.sh')
+            os.system('bash '+path+'/run.sh')
 
 if len(sys.argv) ==2:
     bsh(sys.argv[1])
