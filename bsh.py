@@ -1,4 +1,5 @@
 import sys
+import os
 
 def bsh(filename):
     f = open(filename,'r')
@@ -6,7 +7,7 @@ def bsh(filename):
     for line in f:
         if line.startswith('#!'):
             path = line.replace('#!','').strip()
-            mode = 'non'
+            mode = 'bash'
             fp = open(path+'/py.py','w')
             fb = open(path+'/bash.sh','w',newline='')
             fv = open(path+'/.bin','w')
@@ -30,15 +31,18 @@ def bsh(filename):
             fb.write('}'+'\n')
             #parsing
             for line1 in f:
-                if line1.startswith('-b'):
+                if line1.startswith('-end'):
                     mode = 'bash'
-                elif line1.startswith('-p'):
+                elif line1.startswith('-py'):
                     mode = 'python'
                 else:
                     if mode == 'bash':
                         fb.write(line1+'\n')
                     elif mode == 'python':
                         fp.write(line1+'\n')
+            #run
+            os.system('cd '+path)
+            os.system('bash run.sh')
 
 if len(sys.argv) ==2:
     bsh(sys.argv[1])
