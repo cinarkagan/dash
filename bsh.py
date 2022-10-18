@@ -13,8 +13,8 @@ def bsh(filename):
             fv = open(path+'/.bin','w')
             fr = open(path+'/run.sh','w',newline='')
             #run
-            fr.write('bash bash.sh'+'\n')
-            fr.write('python py.py')
+            fr.write('bash '+path+'/bash.sh'+'\n')
+            fr.write('python '+path+'/py.py'+'\n')
             #python
             fr.close()
             fp.write('bsh = {}'+'\n')
@@ -41,7 +41,6 @@ def bsh(filename):
                     elif mode == 'python':
                         fp.write(line1+'\n')
             #run
-            os.system('cd '+path)
             os.system('bash '+path+'/run.sh')
 
 if len(sys.argv) ==2:
